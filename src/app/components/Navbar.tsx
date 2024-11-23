@@ -5,7 +5,7 @@ import { FaBars } from 'react-icons/fa'
 import AddPropertyDialog from './AddPropertyDialog'
 import SearchBar from './SearchBar'
 import Sidebar from './Sidebar'
-import { ModeToggle } from './theme-toggle'
+import { ModeToggle } from './ui/theme-toggle'
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false)
