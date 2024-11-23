@@ -6,18 +6,18 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Loader } from 'lucide-react'
 import useAddProperty from '../hooks/use-add-property'
 
-const PropertyForm = ({ isEditing = false}: { isEditing?: boolean }) => {
+const PropertyForm = ({ editId }: { editId?: number }) => {
     const { handleChange, handleStatusChange, handleSubmit, propertyData, isLoading } = useAddProperty()
 
     return (
         <DialogContent>
             <DialogHeader>
                 <DialogTitle>
-                    {isEditing ? 'Edit' : 'Add'} {isEditing ? '' : 'New'} Property
+                    {editId ? 'Edit' : 'Add'} {editId ? '' : 'New'} Property
                 </DialogTitle>
                 <DialogDescription>Fill out the details below to create a new property entry.</DialogDescription>
             </DialogHeader>
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={(e) => (editId ? handleSubmit(e, editId) : handleSubmit)} className="space-y-4">
                 <div className="flex flex-col space-y-2">
                     <Label htmlFor="name">Property Name</Label>
                     <Input id="name" name="name" type="text" placeholder="e.g., 19' 1st Floor Single Building" value={propertyData.name} onChange={handleChange} required />
@@ -48,7 +48,7 @@ const PropertyForm = ({ isEditing = false}: { isEditing?: boolean }) => {
                     <Input id="area" name="area" type="text" placeholder="e.g., 124 sq m" value={propertyData.area} onChange={handleChange} required />
                 </div>
                 <Button type="submit" className="w-full bg-violet-600 hover:bg-violet-700 text-white">
-                    {isLoading ? <Loader className="animate-spin" /> : <p>{isEditing ? 'Edit' : 'Add'} Property</p>}
+                    {isLoading ? <Loader className="animate-spin" /> : <p>{editId ? 'Edit' : 'Add'} Property</p>}
                 </Button>
             </form>
         </DialogContent>

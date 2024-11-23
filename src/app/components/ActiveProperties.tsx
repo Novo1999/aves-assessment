@@ -26,7 +26,6 @@ const ActiveProperties = () => {
         data: { activeProperties },
         setData,
     } = useDataContext()
-    console.log('🚀 ~ ActiveProperties ~ activeProperties:', activeProperties)
     const [isSearching, setIsSearching] = useState(false)
     const [query, setQuery] = useState('')
 
@@ -113,7 +112,7 @@ const ActiveProperties = () => {
                                     <Button
                                         onClick={() => {
                                             setModalOpen(true)
-                                            setContent(<PropertyForm isEditing />)
+                                            setContent(<PropertyForm editId={property.id} />)
                                             setPropertyData(property)
                                         }}
                                         className="size-8"
