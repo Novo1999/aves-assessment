@@ -6,6 +6,7 @@ import { ThemeProvider } from './components/theme-provider'
 import { MyModal } from './components/ui/MyModal'
 import { DataProvider } from './contexts/DataContext'
 import { ModalProvider } from './contexts/ModalContext'
+import { PropertyProvider } from './contexts/PropertyContext'
 import './globals.css'
 
 const geistSans = localFont({
@@ -32,13 +33,15 @@ export default function RootLayout({
         <html lang="en" suppressHydrationWarning>
             <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white`}>
                 <DataProvider>
-                    <ModalProvider>
-                        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-                            <Navbar />
-                            {children}
-                        </ThemeProvider>
-                        <MyModal />
-                    </ModalProvider>
+                    <PropertyProvider>
+                        <ModalProvider>
+                            <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+                                <Navbar />
+                                {children}
+                            </ThemeProvider>
+                            <MyModal />
+                        </ModalProvider>
+                    </PropertyProvider>
                 </DataProvider>
                 <Toaster />
             </body>

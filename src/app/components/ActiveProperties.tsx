@@ -3,9 +3,12 @@ import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { useToast } from '@/hooks/use-toast'
+import { usePathname, useRouter } from 'next/navigation'
 import { FaEdit, FaInfoCircle, FaSearch, FaTrash, FaUser } from 'react-icons/fa'
 import { useDataContext } from '../contexts/DataContext'
 import { useModal } from '../contexts/ModalContext'
+import useAddProperty from '../hooks/use-add-property'
+import PropertyForm from './PropertyForm'
 
 const statusColors = {
     active: 'bg-green-500',
@@ -14,6 +17,9 @@ const statusColors = {
 }
 
 const ActiveProperties = () => {
+    const router = useRouter()
+    const pathname = usePathname()
+    const {setPropertyData} = useAddProperty()
     const { toast } = useToast()
     const { setContent, setModalOpen } = useModal()
     const {
@@ -22,14 +28,16 @@ const ActiveProperties = () => {
     } = useDataContext()
 
     const handleDelete = (id: number) => {
-        const propertyName = activeProperties.properties.find((prop) => prop.id === id)?.name
-        const toDelete = activeProperties.properties.find((prop) => prop.id === id)
+        const propertyName = activeProperties.properties.find((prop: any) => prop.id === id)?.name
+
+        // this will help with undoing
+        const toDelete = activeProperties.properties.find((prop: any) => prop.id === id)
 
         setData((prev) => ({
             ...prev,
             activeProperties: {
                 ...prev.activeProperties,
-                properties: prev.activeProperties.properties.filter((property) => property.id !== id),
+                properties: prev.activeProperties.properties.filter((property: any) => property.id !== id),
             },
         }))
         toast({
@@ -52,6 +60,7 @@ const ActiveProperties = () => {
             ),
             duration: 3000,
         })
+        setModalOpen(false)
     }
 
     return (
@@ -63,14 +72,16 @@ const ActiveProperties = () => {
                 </Button>
             </div>
             <div className="overflow-y-auto lg:h-[34rem]">
-                {activeProperties.properties.map((property) => (
+                {activeProperties.properties.map((property: any) => (
                     <div key={property.id} className="*:py-1 p-2 border-b">
                         <div className="flex justify-between">
                             <div>
-                                <p className="font-semibold">{property.name}</p>
+                                <p className="font-semibold">
+                                    <span className="bg-violet-200 text-violet-500 rounded-full p-1">{property.id}</span> {property.name}
+                                </p>
                             </div>
                             <div className="flex flex-col gap-2">
-                                <Badge className={`${statusColors[property.status]} capitalize`}>{property.status}</Badge>
+                                <Badge className={`${statusColors[property.status as keyof typeof statusColors]} capitalize`}>{property.status}</Badge>
                                 <p className="font-bold text-xs self-end">{property.area}</p>
                             </div>
                         </div>
@@ -86,7 +97,18 @@ const ActiveProperties = () => {
                                 </p>
                             </div>
                             <div className="flex gap-2">
-                                <Button className="size-8" variant="secondary">
+                                <Button
+                                    onClick={() => {
+                                        setModalOpen(true)
+                                        const searchParams = new URLSearchParams()
+                                        searchParams.set("edit_id", property.id.toString())
+                                        router.replace(`${pathname}?${searchParams.toString()}`)
+                                        setPropertyData(property)
+                                        setContent(<PropertyForm />)
+                                    }}
+                                    className="size-8"
+                                    variant="secondary"
+                                >
                                     <FaEdit />
                                 </Button>
                                 <Button
@@ -101,7 +123,7 @@ const ActiveProperties = () => {
                                                     <Button onClick={() => handleDelete(property.id)} variant="destructive">
                                                         Delete
                                                     </Button>
-                                                    <Button variant="secondary">Cancel</Button>
+                                                    <Button onClick={() => setModalOpen(false)} variant="secondary">Cancel</Button>
                                                 </div>
                                             </DialogContent>
                                         )

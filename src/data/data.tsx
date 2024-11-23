@@ -1,8 +1,8 @@
-export const activeProperties = {
+export const activeProperties: any = {
     properties: [
         {
             id: 1,
-            name: "20' 1st floor Family building",
+            name: "1st floor Family building",
             tenants: 2,
             requests: 1,
             status: "active",
@@ -17,7 +17,7 @@ export const activeProperties = {
         },
         {
             id: 2,
-            name: "21' 1st floor Family building",
+            name: "1st floor Family building",
             tenants: 2,
             requests: 1,
             status: "inactive",
@@ -32,7 +32,7 @@ export const activeProperties = {
         },
         {
             id: 3,
-            name: "22' 1st floor Family building",
+            name: "1st floor Family building",
             tenants: 2,
             requests: 1,
             status: "active",
@@ -47,7 +47,7 @@ export const activeProperties = {
         },
         {
             id: 4,
-            name: "23' 1st floor Family building",
+            name: "1st floor Family building",
             tenants: 2,
             requests: 1,
             status: "inactive",
@@ -62,7 +62,7 @@ export const activeProperties = {
         },
         {
             id: 5,
-            name: "17' 1st floor Single building",
+            name: "1st floor Single building",
             tenants: 2,
             requests: 1,
             status: "active",
@@ -77,7 +77,7 @@ export const activeProperties = {
         },
         {
             id: 6,
-            name: "18' 1st floor Single building",
+            name: "1st floor Single building",
             tenants: 2,
             requests: 1,
             status: "pending",
@@ -92,7 +92,7 @@ export const activeProperties = {
         },
         {
             id: 7,
-            name: "19' 1st floor Single building",
+            name: "1st floor Single building",
             tenants: 2,
             requests: 1,
             status: "pending",
