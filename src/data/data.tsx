@@ -1,4 +1,4 @@
-export const activeProperties: any = {
+export const activeProperties = {
     properties: [
         {
             id: 1,
