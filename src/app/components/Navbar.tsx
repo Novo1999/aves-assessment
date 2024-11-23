@@ -1,7 +1,7 @@
 'use client'
 import { Button } from '@/components/ui/button'
 import { useState } from 'react'
-import { FaBars } from 'react-icons/fa'
+import { FaBars, FaPlusCircle } from 'react-icons/fa'
 import SearchBar from './SearchBar'
 import Sidebar from './Sidebar'
 import { ModeToggle } from './theme-toggle'
@@ -9,15 +9,20 @@ import { ModeToggle } from './theme-toggle'
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false)
     return (
-        <nav className="flex justify-between p-4 text-purple-700">
-            <div className='flex gap-6 items-center'>
+        <nav className="flex justify-between p-4 text-purple-700 border">
+            <div className="flex gap-6 items-center">
                 <p>Picture</p>
                 <div className="lg:flex hidden justify-between gap-2 *:bg-violet-200 *:text-violet-800 *:font-semibold">
-                    <Button>Hello</Button>
-                    <Button>Hello</Button>
-                    <Button>Hello</Button>
+                    <Button className='hover:bg-violet-300'>Hello</Button>
+                    <Button className='hover:bg-violet-300'>Hello</Button>
+                    <Button className='hover:bg-violet-300'>Hello</Button>
                 </div>
             </div>
+            <Button className="bg-violet-200 text-violet-800 font-semibold hover:bg-violet-300">
+                <FaPlusCircle />
+                Add Tenant
+            </Button>
+
             <div className="flex gap-2">
                 <SearchBar />
                 <div>

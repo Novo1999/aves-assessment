@@ -3,7 +3,7 @@ import { FaInfoCircle, FaSearch, FaUser } from 'react-icons/fa'
 
 const ActiveProperties = () => {
     return (
-        <section className="text-black mt-6 cols-span-1">
+        <section className="text-black">
             <div className="flex justify-between">
                 <h2>Active Properties (118)</h2>
                 <FaSearch />
