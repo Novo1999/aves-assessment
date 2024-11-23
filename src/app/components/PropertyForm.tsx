@@ -17,7 +17,11 @@ const PropertyForm = ({ editId }: { editId?: number }) => {
                 </DialogTitle>
                 <DialogDescription>Fill out the details below to create a new property entry.</DialogDescription>
             </DialogHeader>
-            <form onSubmit={(e) => (editId ? handleSubmit(e, editId) : handleSubmit)} className="space-y-4">
+            <form onSubmit={(e) => {
+                e.preventDefault()
+                if(editId) return handleSubmit(e, editId)
+                    else handleSubmit(e)
+            }} className="space-y-4">
                 <div className="flex flex-col space-y-2">
                     <Label htmlFor="name">Property Name</Label>
                     <Input id="name" name="name" type="text" placeholder="e.g., 19' 1st Floor Single Building" value={propertyData.name} onChange={handleChange} required />
@@ -47,7 +51,7 @@ const PropertyForm = ({ editId }: { editId?: number }) => {
                     <Label htmlFor="area">Area</Label>
                     <Input id="area" name="area" type="text" placeholder="e.g., 124 sq m" value={propertyData.area} onChange={handleChange} required />
                 </div>
-                <Button disabled={isLoading} type="submit" className="w-full bg-violet-600 hover:bg-violet-700 text-white">
+                <Button disabled={isLoading} type={editId ? "button" : "submit"} className="w-full bg-violet-600 hover:bg-violet-700 text-white">
                     {isLoading ? <Loader className="animate-spin" /> : <p>{editId ? 'Edit' : 'Add'} Property</p>}
                 </Button>
             </form>

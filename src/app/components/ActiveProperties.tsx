@@ -4,12 +4,13 @@ import { Button } from '@/components/ui/button'
 import { DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
 import { useToast } from '@/hooks/use-toast'
-import { X } from 'lucide-react'
+import { Loader2, X } from 'lucide-react'
 import { useState } from 'react'
 import { FaEdit, FaInfoCircle, FaSearch, FaTrash, FaUser } from 'react-icons/fa'
 import { useDataContext } from '../contexts/DataContext'
 import { useModal } from '../contexts/ModalContext'
 import { useProperty } from '../contexts/PropertyContext'
+import useIntersectionObserver from '../hooks/use-intersection-observer'
 import PropertyForm from './PropertyForm'
 
 const statusColors = {
@@ -28,6 +29,7 @@ const ActiveProperties = () => {
     } = useDataContext()
     const [isSearching, setIsSearching] = useState(false)
     const [query, setQuery] = useState('')
+    const { hasMore, limit, infiniteScrollRef } = useIntersectionObserver(activeProperties.properties.slice(0, 10), activeProperties.properties.length)
 
     const handleDelete = (id: number) => {
         const propertyName = activeProperties.properties.find((prop) => prop.id === id)?.name
@@ -65,7 +67,7 @@ const ActiveProperties = () => {
         setModalOpen(false)
     }
 
-    const properties = activeProperties.properties.filter((property) => property.name.toLowerCase().includes(query.toLowerCase()))
+    const properties = activeProperties.properties.filter((property) => property.name.toLowerCase().includes(query.toLowerCase())).slice(0, limit)
 
     return (
         <section className="text-black">
@@ -75,7 +77,7 @@ const ActiveProperties = () => {
                 <Button
                     onClick={() => {
                         setIsSearching(!isSearching)
-                        if(query) setQuery("")
+                        if (query) setQuery('')
                     }}
                     variant="secondary"
                 >
@@ -152,6 +154,11 @@ const ActiveProperties = () => {
                     <div className="flex justify-center items-center h-full gap-2">
                         <FaSearch />
                         No Results
+                    </div>
+                )}
+                {hasMore && (
+                    <div ref={infiniteScrollRef}>
+                        <Loader2 className={`animate-spin m-auto ${properties.length > 0 ? 'block' : 'hidden'}`} />
                     </div>
                 )}
             </div>

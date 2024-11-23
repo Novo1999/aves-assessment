@@ -5,7 +5,7 @@ import { useDataContext } from '../contexts/DataContext'
 import { useModal } from '../contexts/ModalContext'
 import { initialPropertyData, useProperty } from '../contexts/PropertyContext'
 
-const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
+export const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
 
 const useAddProperty = () => {
     const { setModalOpen } = useModal()
@@ -23,7 +23,7 @@ const useAddProperty = () => {
         setPropertyData((prev) => ({ ...prev, status: value }))
     }
 
-    const handleSubmit = async (e: React.FormEvent, id: number | null) => {
+    const handleSubmit = async (e: React.FormEvent, id?: number | null) => {
         e.preventDefault()
         const { name, status, requests, area, tenants } = propertyData
         setIsLoading(true)
@@ -64,7 +64,6 @@ const useAddProperty = () => {
         setModalOpen(false)
         toast({
             title: `Property ${name} added successfully`,
-            description: <Button variant="destructive">Undo</Button>,
             duration: 3000,
         })
         setPropertyData(initialPropertyData)
