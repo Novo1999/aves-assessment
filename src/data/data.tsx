@@ -7,6 +7,13 @@ export const activeProperties = {
             requests: 1,
             status: "active",
             area: "124 sq m",
+            checkIns: 5,
+            checkOuts: 3,
+            earnings: "$1,000.00",
+            reviews: {
+                averageRating: 4.5,
+                totalReviews: 100,
+            },
         },
         {
             id: 2,
@@ -15,6 +22,13 @@ export const activeProperties = {
             requests: 1,
             status: "inactive",
             area: "124 sq m",
+            checkIns: 3,
+            checkOuts: 1,
+            earnings: "$500.00",
+            reviews: {
+                averageRating: 4.0,
+                totalReviews: 75,
+            },
         },
         {
             id: 3,
@@ -23,6 +37,13 @@ export const activeProperties = {
             requests: 1,
             status: "active",
             area: "124 sq m",
+            checkIns: 7,
+            checkOuts: 4,
+            earnings: "$1,500.00",
+            reviews: {
+                averageRating: 4.7,
+                totalReviews: 120,
+            },
         },
         {
             id: 4,
@@ -31,6 +52,13 @@ export const activeProperties = {
             requests: 1,
             status: "inactive",
             area: "124 sq m",
+            checkIns: 2,
+            checkOuts: 0,
+            earnings: "$200.00",
+            reviews: {
+                averageRating: 4.2,
+                totalReviews: 50,
+            },
         },
         {
             id: 5,
@@ -39,6 +67,13 @@ export const activeProperties = {
             requests: 1,
             status: "active",
             area: "124 sq m",
+            checkIns: 4,
+            checkOuts: 3,
+            earnings: "$800.00",
+            reviews: {
+                averageRating: 4.6,
+                totalReviews: 110,
+            },
         },
         {
             id: 6,
@@ -47,6 +82,13 @@ export const activeProperties = {
             requests: 1,
             status: "pending",
             area: "124 sq m",
+            checkIns: 1,
+            checkOuts: 1,
+            earnings: "$300.00",
+            reviews: {
+                averageRating: 4.3,
+                totalReviews: 30,
+            },
         },
         {
             id: 7,
@@ -55,6 +97,13 @@ export const activeProperties = {
             requests: 1,
             status: "pending",
             area: "124 sq m",
+            checkIns: 0,
+            checkOuts: 0,
+            earnings: "$0.00",
+            reviews: {
+                averageRating: 0,
+                totalReviews: 0,
+            },
         },
     ],
 };
@@ -153,7 +202,5 @@ export const dashboardData = {
     filters: {
         timePeriod: "Last month",
     },
-    activeProperties
+    activeProperties,
 };
-
-

@@ -22,7 +22,7 @@ const DetailsItem = ({ className, statDetails, index }: { className?: string; st
                     <div className="text-xl font-bold text-black">{statDetails.data}</div>
                 )}
             </div>
-            <div>{iconMap[index]}</div>
+            <div className='text-violet-600 p-2 rounded-full border bg-violet-200'>{iconMap[index]}</div>
         </div>
     )
 }
