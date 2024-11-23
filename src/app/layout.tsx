@@ -1,3 +1,4 @@
+import { Toaster } from '@/components/ui/toaster'
 import type { Metadata } from 'next'
 import localFont from 'next/font/local'
 import Navbar from './components/Navbar'
@@ -35,6 +36,7 @@ export default function RootLayout({
                         {children}
                     </ThemeProvider>
                 </DataProvider>
+                <Toaster />
             </body>
         </html>
     )

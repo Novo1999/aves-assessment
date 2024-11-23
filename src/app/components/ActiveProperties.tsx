@@ -3,6 +3,12 @@ import { Badge } from '@/components/ui/badge'
 import { FaInfoCircle, FaSearch, FaUser } from 'react-icons/fa'
 import { useDataContext } from '../contexts/DataContext'
 
+const statusColors = {
+    active: 'bg-green-500',
+    inactive: 'bg-red-500',
+    pending: 'bg-orange-500',
+}
+
 const ActiveProperties = () => {
     const {
         data: { activeProperties },
@@ -14,7 +20,7 @@ const ActiveProperties = () => {
                 <h2 className="font-bold">Active Properties ({activeProperties.properties.length})</h2>
                 <FaSearch />
             </div>
-            <div className='overflow-y-auto lg:h-[34rem]'>
+            <div className="overflow-y-auto lg:h-[34rem]">
                 {activeProperties.properties.map((property) => (
                     <div key={property.id} className="*:py-1 p-2 border-b">
                         <div className="flex justify-between">
@@ -22,7 +28,7 @@ const ActiveProperties = () => {
                                 <p className="font-semibold">{property.name}</p>
                             </div>
                             <div className="flex flex-col gap-2">
-                                <Badge>Badge</Badge>
+                                <Badge className={`${statusColors[property.status]} capitalize`}>{property.status}</Badge>
                                 <p className="font-bold text-xs self-end">{property.area}</p>
                             </div>
                         </div>

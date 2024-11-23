@@ -12,7 +12,6 @@ const DataContext = createContext<{
 
 export const DataProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [data, setData] = useState<DashboardDataType>(dashboardData);
-  console.log("🚀 ~ data:", data)
 
   return (
     <DataContext.Provider value={{ data, setData }}>

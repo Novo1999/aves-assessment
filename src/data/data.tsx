@@ -5,7 +5,7 @@ export const activeProperties = {
             name: "20' 1st floor Family building",
             tenants: 2,
             requests: 1,
-            status: "Active",
+            status: "active",
             area: "124 sq m",
         },
         {
@@ -13,7 +13,7 @@ export const activeProperties = {
             name: "21' 1st floor Family building",
             tenants: 2,
             requests: 1,
-            status: "Active",
+            status: "inactive",
             area: "124 sq m",
         },
         {
@@ -21,7 +21,7 @@ export const activeProperties = {
             name: "22' 1st floor Family building",
             tenants: 2,
             requests: 1,
-            status: "Active",
+            status: "active",
             area: "124 sq m",
         },
         {
@@ -29,7 +29,7 @@ export const activeProperties = {
             name: "23' 1st floor Family building",
             tenants: 2,
             requests: 1,
-            status: "Active",
+            status: "inactive",
             area: "124 sq m",
         },
         {
@@ -37,7 +37,7 @@ export const activeProperties = {
             name: "17' 1st floor Single building",
             tenants: 2,
             requests: 1,
-            status: "Active",
+            status: "active",
             area: "124 sq m",
         },
         {
@@ -45,7 +45,7 @@ export const activeProperties = {
             name: "18' 1st floor Single building",
             tenants: 2,
             requests: 1,
-            status: "Active",
+            status: "pending",
             area: "124 sq m",
         },
         {
@@ -53,7 +53,7 @@ export const activeProperties = {
             name: "19' 1st floor Single building",
             tenants: 2,
             requests: 1,
-            status: "Active",
+            status: "pending",
             area: "124 sq m",
         },
     ],
