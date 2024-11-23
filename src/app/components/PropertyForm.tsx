@@ -6,12 +6,15 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Loader } from 'lucide-react'
 import useAddProperty from '../hooks/use-add-property'
 
-const PropertyForm = () => {
+const PropertyForm = ({ isEditing = false}: { isEditing?: boolean }) => {
     const { handleChange, handleStatusChange, handleSubmit, propertyData, isLoading } = useAddProperty()
+
     return (
         <DialogContent>
             <DialogHeader>
-                <DialogTitle>Add New Property</DialogTitle>
+                <DialogTitle>
+                    {isEditing ? 'Edit' : 'Add'} {isEditing ? '' : 'New'} Property
+                </DialogTitle>
                 <DialogDescription>Fill out the details below to create a new property entry.</DialogDescription>
             </DialogHeader>
             <form onSubmit={handleSubmit} className="space-y-4">
@@ -45,7 +48,7 @@ const PropertyForm = () => {
                     <Input id="area" name="area" type="text" placeholder="e.g., 124 sq m" value={propertyData.area} onChange={handleChange} required />
                 </div>
                 <Button type="submit" className="w-full bg-violet-600 hover:bg-violet-700 text-white">
-                    {isLoading ? <Loader className="animate-spin" /> : <p>Add Property</p>}
+                    {isLoading ? <Loader className="animate-spin" /> : <p>{isEditing ? 'Edit' : 'Add'} Property</p>}
                 </Button>
             </form>
         </DialogContent>
