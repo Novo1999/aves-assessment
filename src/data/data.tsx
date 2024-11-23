@@ -1,5 +1,4 @@
 export const activeProperties = {
-    total: 118,
     properties: [
         {
             id: 1,
@@ -58,7 +57,6 @@ export const activeProperties = {
             area: "124 sq m",
         },
     ],
-    seeMore: 111,
 };
 
 export const dashboardData = {
