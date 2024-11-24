@@ -1,17 +1,16 @@
 'use client'
 
-import { dashboardData } from '@/data/data';
+import { DashboardData, dashboardData } from '@/data/data';
 import React, { createContext, useContext, useState } from 'react';
 
-type DashboardDataType = typeof dashboardData;
 
 const DataContext = createContext<{
-  data: DashboardDataType;
-  setData: React.Dispatch<React.SetStateAction<DashboardDataType>>;
+  data: DashboardData;
+  setData: React.Dispatch<React.SetStateAction<DashboardData>>;
 } | null>(null);
 
 export const DataProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [data, setData] = useState<DashboardDataType>(dashboardData);
+  const [data, setData] = useState<DashboardData>(dashboardData);
 
   return (
     <DataContext.Provider value={{ data, setData }}>

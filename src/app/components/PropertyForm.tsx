@@ -51,7 +51,7 @@ const PropertyForm = ({ editId }: { editId?: number }) => {
                     <Label htmlFor="area">Area</Label>
                     <Input id="area" name="area" type="text" placeholder="e.g., 124 sq m" value={propertyData.area} onChange={handleChange} required />
                 </div>
-                <Button disabled={isLoading} type={editId ? "button" : "submit"} className="w-full bg-violet-600 hover:bg-violet-700 text-white">
+                <Button disabled={isLoading} type="submit" className="w-full bg-violet-600 hover:bg-violet-700 text-white">
                     {isLoading ? <Loader className="animate-spin" /> : <p>{editId ? 'Edit' : 'Add'} Property</p>}
                 </Button>
             </form>

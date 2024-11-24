@@ -1,4 +1,4 @@
-import { Button } from '@/components/ui/button'
+import { Property } from '@/data/data'
 import { useToast } from '@/hooks/use-toast'
 import { useState } from 'react'
 import { useDataContext } from '../contexts/DataContext'
@@ -31,35 +31,30 @@ const useAddProperty = () => {
 
         if (id) {
             setData((prev) => {
-                const updatedProperties = prev.activeProperties.properties.map(property => 
-                    property.id === id
-                        ? { ...property, ...propertyData }
-                        : property 
-                );
-        
+                const updatedProperties = prev.activeProperties.properties.map((property) => (property.id === id ? { ...property, ...propertyData } : property))
+
                 return {
                     ...prev,
                     activeProperties: {
                         ...prev.activeProperties,
-                        properties: updatedProperties, 
+                        properties: updatedProperties,
                     },
-                };
-            });
+                }
+            })
+        } else {
+            setData((prev) => {
+                const newId = prev.activeProperties.properties.length > 0 ? prev.activeProperties.properties[prev.activeProperties.properties.length - 1].id + 1 : 1
+                const newProperty = { id: newId, name, status, requests, area: `${area} sq m`, tenants }
+
+                return {
+                    ...prev,
+                    activeProperties: {
+                        ...prev.activeProperties,
+                        properties: [...prev.activeProperties.properties, newProperty as Property],
+                    },
+                }
+            })
         }
-        
-
-        setData((prev) => {
-            const newId = prev.activeProperties.properties.length > 0 ? prev.activeProperties.properties[prev.activeProperties.properties.length - 1].id + 1 : 1
-            const newProperty = { id: newId, name, status, requests, area: `${area} sq m`, tenants }
-
-            return {
-                ...prev,
-                activeProperties: {
-                    ...prev.activeProperties,
-                    properties: [...prev.activeProperties.properties, newProperty],
-                },
-            }
-        })
         setIsLoading(false)
         setModalOpen(false)
         toast({

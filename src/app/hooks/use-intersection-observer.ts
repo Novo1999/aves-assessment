@@ -1,24 +1,31 @@
 import { useEffect, useRef, useState } from "react";
+import { useDataContext } from "../contexts/DataContext";
 import { sleep } from "./use-add-property";
 
-const useIntersectionObserver = (data, total) => {
+const useIntersectionObserver = (query: string) => {
     const [limit, setLimit] = useState(10);
-    const infiniteScrollRef = useRef(null); 
-    const [hasMore, setHasMore] = useState(true); 
+    const infiniteScrollRef = useRef(null);
+    const [hasMore, setHasMore] = useState(true);
     console.log("🚀 ~ useIntersectionObserver ~ hasMore:", hasMore)
+    const {
+        data: { activeProperties },
+    } = useDataContext()
+
+    const properties = activeProperties.properties.filter((property) => property.name.toLowerCase().includes(query.toLowerCase())).slice(0, limit)
 
     useEffect(() => {
-        if(data.length < total) {
-            setHasMore(true)
+        if (properties.length === activeProperties.properties.length) {
+            setHasMore(false)
         }
-        if (total) {
-            setHasMore(data.length < total);
+        if (properties.length < activeProperties.properties.length) {
+            if (query) return
+            setHasMore(true);
         }
 
-        const onIntersection = async (entries) => {
+        const onIntersection = async (entries: IntersectionObserverEntry[]) => {
             if (entries[0].isIntersecting && hasMore) {
                 await sleep(800)
-                setLimit((prevLimit) => Math.min(prevLimit + 10, total)); 
+                setLimit((prevLimit) => Math.min(prevLimit + 10, activeProperties.properties.length));
             }
         };
 
@@ -31,9 +38,10 @@ const useIntersectionObserver = (data, total) => {
         return () => {
             if (observer) observer.disconnect();
         };
-    }, [hasMore,limit, total, data.length]);
+    }, [hasMore, limit, properties.length, query, activeProperties.properties]);
 
-    return { infiniteScrollRef, hasMore, limit };
+
+    return { infiniteScrollRef, hasMore, limit, activeProperties, properties };
 };
 
 export default useIntersectionObserver;

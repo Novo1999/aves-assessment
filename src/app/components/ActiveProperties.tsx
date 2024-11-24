@@ -3,6 +3,7 @@ import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
+import { Property } from '@/data/data'
 import { useToast } from '@/hooks/use-toast'
 import { Loader2, X } from 'lucide-react'
 import { useState } from 'react'
@@ -23,13 +24,10 @@ const ActiveProperties = () => {
     const { toast } = useToast()
     const { setContent, setModalOpen } = useModal()
     const { setPropertyData } = useProperty()
-    const {
-        data: { activeProperties },
-        setData,
-    } = useDataContext()
+    const { setData } = useDataContext()
     const [isSearching, setIsSearching] = useState(false)
     const [query, setQuery] = useState('')
-    const { hasMore, limit, infiniteScrollRef } = useIntersectionObserver(activeProperties.properties.slice(0, 10), activeProperties.properties.length)
+    const { hasMore, activeProperties, infiniteScrollRef, properties } = useIntersectionObserver(query)
 
     const handleDelete = (id: number) => {
         const propertyName = activeProperties.properties.find((prop) => prop.id === id)?.name
@@ -53,7 +51,7 @@ const ActiveProperties = () => {
                             ...prev,
                             activeProperties: {
                                 ...prev.activeProperties,
-                                properties: [...prev.activeProperties.properties, toDelete],
+                                properties: [...prev.activeProperties.properties, toDelete as Property],
                             },
                         }))
                     }
@@ -66,8 +64,6 @@ const ActiveProperties = () => {
         })
         setModalOpen(false)
     }
-
-    const properties = activeProperties.properties.filter((property) => property.name.toLowerCase().includes(query.toLowerCase())).slice(0, limit)
 
     return (
         <section className="text-black">
