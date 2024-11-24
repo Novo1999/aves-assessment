@@ -1,9 +1,9 @@
 import { FaCheckCircle, FaDollarSign, FaSignOutAlt, FaStar } from 'react-icons/fa'
 
-type StatDetails = {
+export type StatDetails = {
     id: number
     title: string
-    data: any
+    data: Record<string, string> | string | number
     icon: string
 }
 
@@ -16,10 +16,10 @@ const DetailsItem = ({ className, statDetails, index }: { className?: string; st
                 <p className="text-slate-400">{statDetails.title}</p>
                 {statDetails.id === 4 ? (
                     <div className="text-xl font-bold text-black">
-                        {statDetails.data.averageRating}({statDetails.data.totalReviews})
+                        {(statDetails.data as Record<string, string>).averageRating} ({(statDetails.data as Record<string, string>).totalReviews})
                     </div>
                 ) : (
-                    <div className="text-xl font-bold text-black">{statDetails.data}</div>
+                    <div className="text-xl font-bold text-black">{statDetails.data as number}</div>
                 )}
             </div>
             <div className='text-violet-600 p-2 rounded-full border bg-violet-200'>{iconMap[index]}</div>

@@ -68,7 +68,7 @@ const ActiveProperties = () => {
     return (
         <section className="text-black">
             <div className="flex justify-between items-center border-b py-2">
-                {!query ? <h2 className="font-bold">Active Properties ({properties.length})</h2> : <h2 className="font-result">{properties.length} results</h2>}
+                {!query ? <h2 className="font-bold">Active Properties ({activeProperties.properties.length})</h2> : <h2 className="font-result">{properties.length} results</h2>}
                 {isSearching && <Input value={query} onChange={(e) => setQuery(e.target.value)} type="search" autoFocus className="w-fit focus-visible:ring-violet-500" />}
                 <Button
                     onClick={() => {
