@@ -10,7 +10,7 @@ const PropertyForm = ({ editId }: { editId?: number }) => {
     const { handleChange, handleStatusChange, handleSubmit, propertyData, isLoading } = useAddProperty()
 
     return (
-        <DialogContent className="overflow-scroll max-h-[40rem]">
+        <DialogContent className="overflow-y-scroll max-h-[40rem]">
             <DialogHeader>
                 <DialogTitle>
                     {editId ? 'Edit' : 'Add'} {editId ? '' : 'New'} Property
@@ -32,12 +32,12 @@ const PropertyForm = ({ editId }: { editId?: number }) => {
 
                 <div className="flex flex-col space-y-2">
                     <Label htmlFor="tenants">Tenants</Label>
-                    <Input id="tenants" name="tenants" type="number" placeholder="e.g., 2" value={propertyData.tenants} onChange={handleChange} required />
+                    <Input id="tenants" name="tenants" type="number" placeholder="e.g., 2" value={Number(propertyData.tenants).toString()} onChange={handleChange} required />
                 </div>
 
                 <div className="flex flex-col space-y-2">
                     <Label htmlFor="requests">Requests</Label>
-                    <Input id="requests" name="requests" type="number" placeholder="e.g., 1" value={propertyData.requests} onChange={handleChange} required />
+                    <Input id="requests" name="requests" type="number" placeholder="e.g., 1" value={Number(propertyData.requests).toString()} onChange={handleChange} required />
                 </div>
 
                 <div className="flex flex-col space-y-2">
@@ -56,22 +56,22 @@ const PropertyForm = ({ editId }: { editId?: number }) => {
 
                 <div className="flex flex-col space-y-2">
                     <Label htmlFor="area">Area</Label>
-                    <Input id="area" name="area" type="number" placeholder="e.g., 124 sq m" value={propertyData.area} onChange={handleChange} required />
+                    <Input id="area" name="area" type="number" placeholder="e.g., 124 sq m" value={Number(propertyData.area).toString()} onChange={handleChange} required />
                 </div>
 
                 <div className="flex flex-col space-y-2">
                     <Label htmlFor="checkIns">Check-Ins</Label>
-                    <Input id="checkIns" name="checkIns" type="number" placeholder="e.g., 5" value={propertyData.checkIns} onChange={handleChange} required />
+                    <Input id="checkIns" name="checkIns" type="number" placeholder="e.g., 5" value={Number(propertyData.checkIns).toString()} onChange={handleChange} required />
                 </div>
 
                 <div className="flex flex-col space-y-2">
                     <Label htmlFor="checkOuts">Check-Outs</Label>
-                    <Input id="checkOuts" name="checkOuts" type="number" placeholder="e.g., 3" value={propertyData.checkOuts} onChange={handleChange} required />
+                    <Input id="checkOuts" name="checkOuts" type="number" placeholder="e.g., 3" value={Number(propertyData.checkOuts).toString()} onChange={handleChange} required />
                 </div>
 
                 <div className="flex flex-col space-y-2">
                     <Label htmlFor="earnings">Earnings</Label>
-                    <Input id="earnings" name="earnings" type="number" placeholder="1000" value={propertyData.earnings} onChange={handleChange} required />
+                    <Input id="earnings" name="earnings" type="number" placeholder="1000" value={Number(propertyData.earnings).toString()} onChange={handleChange} required />
                 </div>
 
                 <Button disabled={isLoading} type="submit" className="w-full bg-violet-600 hover:bg-violet-700 text-white">

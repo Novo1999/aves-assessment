@@ -12,14 +12,12 @@ const DetailsItem = ({ className, statDetails, index }: { className?: string; st
 
     // review data would come from property renters
     const reviewData = activeProperties?.properties?.reduce((acc, curr) => {
-        const currentAverageRating = curr.reviews.averageRating
-        acc += currentAverageRating
+        const currentAverageRating = curr?.reviews?.averageRating
+        acc += currentAverageRating || 0
         return acc
     }, 0)
 
-    const averageRating = (reviewData / activeProperties.properties.length).toFixed(2)
-
-    
+    const averageRating = (reviewData / activeProperties.properties.length).toFixed(2) || 0
 
     return (
         <div className={`flex justify-between items-center p-4 w-full ${className || ''}`}>
@@ -27,11 +25,11 @@ const DetailsItem = ({ className, statDetails, index }: { className?: string; st
                 <p className="text-slate-400">{statDetails.title}</p>
                 {statDetails.id === 4 ? (
                     <div className="text-xl font-bold text-black dark:text-white">
-                        {averageRating} ({activeProperties.properties.reduce((acc, prop) => (acc += prop.reviews.totalReviews), 0)})
+                        {averageRating} ({activeProperties.properties.reduce((acc, prop) => (acc += prop?.reviews?.totalReviews || 0), 0)})
                     </div>
                 ) : (
                     <div className="text-xl font-bold text-black dark:text-white">
-                        {activeProperties.properties.reduce((acc, prop) => (acc += prop[statDetails.key as keyof Property] as number), 0)}
+                        {activeProperties.properties.reduce((acc, prop) => (acc += prop?.[statDetails.key as keyof Property] as number), 0)}
                     </div>
                 )}
             </div>

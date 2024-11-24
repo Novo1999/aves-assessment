@@ -7,7 +7,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/app/
 import { Property } from '@/data/data'
 import { useToast } from '@/hooks/use-toast'
 import { Loader2, X } from 'lucide-react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { FaEdit, FaFilter, FaInfoCircle, FaSearch, FaTrash, FaUser } from 'react-icons/fa'
 import { useDataContext } from '../contexts/DataContext'
 import { useModal } from '../contexts/ModalContext'
@@ -29,9 +29,16 @@ const ActiveProperties = () => {
     const { setData } = useDataContext()
     const [isSearching, setIsSearching] = useState(false)
     const [query, setQuery] = useState('')
-    const { hasMore, activeProperties, infiniteScrollRef, properties, setHasMore } = useIntersectionObserver()
+    const { hasMore, activeProperties, infiniteScrollRef, properties, limit, setLimit, setHasMore } = useIntersectionObserver()
     const [filteredData, setFilteredData] = useState(properties || [])
     const [isFiltering, setIsFiltering] = useState(false)
+
+
+    // if limit changes, set filtered data to properties
+    useEffect(() => {
+        if (isFiltering || isSearching) return
+        if (limit) setFilteredData(properties)
+    }, [limit, isFiltering, isSearching])
 
     const handleDelete = (id: number) => {
         const propertyName = activeProperties.properties.find((prop) => prop.id === id)?.name
@@ -72,15 +79,16 @@ const ActiveProperties = () => {
     }
 
     const onFilterChange = (key: string, value: string) => {
-        if(key === 'reset') {
+        if (key === 'reset') {
             setIsFiltering(false)
             return setFilteredData(properties)
         }
-        setIsFiltering(true)
         if (key === 'status') {
+            setIsFiltering(true)
             setFilteredData(() => properties.filter((item) => item.status === value).filter((property) => property.name.toLowerCase().includes(query.toLowerCase())))
         }
-        setHasMore(false)
+        setLimit(10)
+        setHasMore(true)
     }
 
     return (
@@ -93,7 +101,6 @@ const ActiveProperties = () => {
                         onChange={(e) => {
                             const value = e.target.value
                             setQuery(value)
-                            setHasMore(false)
                             setFilteredData(() => (filteredData.length > 0 ? filteredData : properties).filter((property) => property.name.toLowerCase().includes(query.toLowerCase())))
                         }}
                         type="search"
@@ -103,20 +110,18 @@ const ActiveProperties = () => {
                 )}
                 <div className="space-x-2">
                     <TooltipProvider delayDuration={0}>
-                        {
-                            <Tooltip>
-                                <TooltipTrigger asChild>
-                                    <FilterDropdown isFiltering={isFiltering} onFilterChange={onFilterChange}>
-                                        <Button className="dark:bg-white dark:text-black dark:hover:bg-slate-200 bg-violet-200 hover:bg-violet-400">
-                                            <FaFilter />
-                                        </Button>
-                                    </FilterDropdown>
-                                </TooltipTrigger>
-                                <TooltipContent>
-                                    <p>Filter</p>
-                                </TooltipContent>
-                            </Tooltip>
-                        }
+                        <Tooltip>
+                            <TooltipTrigger asChild>
+                                <FilterDropdown isFiltering={isFiltering} onFilterChange={onFilterChange}>
+                                    <Button className="dark:bg-white dark:text-black dark:hover:bg-slate-200 bg-violet-200 hover:bg-violet-400">
+                                        <FaFilter />
+                                    </Button>
+                                </FilterDropdown>
+                            </TooltipTrigger>
+                            <TooltipContent>
+                                <p>Filter</p>
+                            </TooltipContent>
+                        </Tooltip>
 
                         <Tooltip>
                             <TooltipTrigger asChild>
@@ -126,6 +131,8 @@ const ActiveProperties = () => {
                                         if (query) {
                                             setQuery('')
                                             setFilteredData(properties)
+                                            setLimit(10)
+                                            setHasMore(true)
                                         }
                                     }}
                                     variant="secondary"
@@ -211,11 +218,10 @@ const ActiveProperties = () => {
                         No Results
                     </div>
                 )}
-                {hasMore && (
-                    <div ref={infiniteScrollRef}>
-                        <Loader2 className={`animate-spin m-auto ${properties.length > 0 ? 'block' : 'hidden'}`} />
-                    </div>
-                )}
+
+                <div className={`${hasMore && !isFiltering && !isSearching ? 'visible' : 'invisible'}`} ref={infiniteScrollRef}>
+                    <Loader2 className={`animate-spin m-auto ${properties.length > 0 ? 'block' : 'hidden'}`} />
+                </div>
             </div>
         </section>
     )

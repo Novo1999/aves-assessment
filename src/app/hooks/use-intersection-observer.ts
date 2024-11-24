@@ -39,7 +39,7 @@ const useIntersectionObserver = () => {
     }, [hasMore, limit, properties.length, activeProperties.properties]);
 
 
-    return { infiniteScrollRef, hasMore, limit, activeProperties, properties, setHasMore };
+    return { infiniteScrollRef, hasMore, limit, activeProperties, properties, setHasMore, setLimit };
 };
 
 export default useIntersectionObserver;
