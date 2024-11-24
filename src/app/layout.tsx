@@ -1,6 +1,7 @@
 import { Toaster } from '@/components/ui/toaster'
 import type { Metadata } from 'next'
 import localFont from 'next/font/local'
+import Footer from './components/Footer'
 import Navbar from './components/Navbar'
 import { MyModal } from './components/ui/MyModal'
 import { ThemeProvider } from './components/ui/theme-provider'
@@ -31,7 +32,7 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en" suppressHydrationWarning>
-            <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white`}>
+            <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white dark:bg-gray-800`}>
                 <DataProvider>
                     <PropertyProvider>
                         <ModalProvider>
@@ -44,6 +45,7 @@ export default function RootLayout({
                     </PropertyProvider>
                 </DataProvider>
                 <Toaster />
+                <Footer />
             </body>
         </html>
     )

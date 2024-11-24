@@ -9,7 +9,7 @@ import { ModeToggle } from './ui/theme-toggle'
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false)
     return (
-        <nav className="flex justify-between p-4 text-purple-700 border">
+        <nav className="flex justify-between p-4 text-purple-700 border dark:border-0">
             <div className="flex gap-6 items-center">
                 <Avatar className="md:w-16">
                     <AvatarImage src="https://novodip.vercel.app/_next/image?url=%2Fimages%2Ffolio-hero.png&w=640&q=75" alt="novodip" className="object-cover" />

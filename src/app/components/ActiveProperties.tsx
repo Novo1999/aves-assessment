@@ -15,9 +15,9 @@ import useIntersectionObserver from '../hooks/use-intersection-observer'
 import PropertyForm from './PropertyForm'
 
 const statusColors = {
-    active: 'bg-green-500',
-    inactive: 'bg-red-500',
-    pending: 'bg-orange-500',
+    active: 'bg-green-500 dark:bg-green-500',
+    inactive: 'bg-red-500 dark:bg-red-500',
+    pending: 'bg-orange-500 dark:bg-orange-500',
 }
 
 const ActiveProperties = () => {
@@ -68,7 +68,7 @@ const ActiveProperties = () => {
     }
 
     return (
-        <section className="text-black">
+        <section className="text-black dark:text-white">
             <div className="flex justify-between items-center border-b py-2 flex-wrap gap-2">
                 {!query ? <h2 className="font-bold">Active Properties ({activeProperties.properties.length})</h2> : <h2 className="font-result">{properties.length} results</h2>}
                 {isSearching && <Input value={query} onChange={(e) => setQuery(e.target.value)} type="search" autoFocus className="w-fit focus-visible:ring-violet-500" />}
@@ -78,6 +78,7 @@ const ActiveProperties = () => {
                         if (query) setQuery('')
                     }}
                     variant="secondary"
+                    className='dark:bg-white dark:text-black dark:hover:bg-slate-200'
                 >
                     {isSearching ? <X /> : <FaSearch />}
                 </Button>
@@ -93,7 +94,7 @@ const ActiveProperties = () => {
                                     </p>
                                 </div>
                                 <div className="flex flex-col gap-2">
-                                    <Badge className={`${statusColors[property.status as keyof typeof statusColors]} capitalize`}>{property.status}</Badge>
+                                    <Badge className={`${statusColors[property.status as keyof typeof statusColors]} capitalize dark:text-white`}>{property.status}</Badge>
                                     <p className="font-bold text-xs self-end">{`${property.area} sqm`}</p>
                                 </div>
                             </div>
