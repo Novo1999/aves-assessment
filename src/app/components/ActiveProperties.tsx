@@ -42,6 +42,8 @@ const ActiveProperties = () => {
                 properties: prev.activeProperties.properties.filter((property) => property.id !== id),
             },
         }))
+
+        // toast has undo button to revert deletion
         toast({
             title: `${propertyName} deleted`,
             description: (
@@ -51,7 +53,7 @@ const ActiveProperties = () => {
                             ...prev,
                             activeProperties: {
                                 ...prev.activeProperties,
-                                properties: [...prev.activeProperties.properties, toDelete as Property],
+                                properties: [...prev.activeProperties.properties, toDelete as Property].sort((a, b) => a.id - b.id), // so if the item was deleted from the middle, it goes back to that place again
                             },
                         }))
                     }

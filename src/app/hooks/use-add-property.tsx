@@ -60,7 +60,7 @@ const useAddProperty = () => {
         setIsLoading(false)
         setModalOpen(false)
         toast({
-            title: `Property ${name} added successfully`,
+            title: `Property ${name} ${id ? "edited" : "added"} successfully`,
             duration: 3000,
         })
         setPropertyData(initialPropertyData)

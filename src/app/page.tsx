@@ -15,7 +15,7 @@ export default function Home() {
             </div>
             <section className='flex justify-between'>
                 <div>
-                    <p className="text-xl font-bold text-black">Welcome back, Iquas!</p>
+                    <p className="text-xl font-bold text-black">Welcome back, Novodip!</p>
                     <p className="text-slate-400">This is property portfolio report.</p>
                 </div>
                 <AddPropertyDialog />
@@ -32,6 +32,7 @@ export default function Home() {
                 </div>
             </section>
             <InitLocalStorage />
+            <div className="bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-purple-200 to-transparent rounded-full z-[-10] blur-lg fixed top-6 right-0 transform translate-x-1/2 -translate-y-1/2 w-[40%] h-[40%]"></div>
         </main>
     )
 }
