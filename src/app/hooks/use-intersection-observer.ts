@@ -6,7 +6,6 @@ const useIntersectionObserver = (query: string) => {
     const [limit, setLimit] = useState(10);
     const infiniteScrollRef = useRef(null);
     const [hasMore, setHasMore] = useState(true);
-    console.log("🚀 ~ useIntersectionObserver ~ hasMore:", hasMore)
     const {
         data: { activeProperties },
     } = useDataContext()
