@@ -1,6 +1,6 @@
 'use client'
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import { Button } from '@/components/ui/button'
+import { Avatar, AvatarFallback, AvatarImage } from '@/app/components/ui/avatar'
+import { Button } from '@/app/components/ui/button'
 import { useState } from 'react'
 import { FaBars } from 'react-icons/fa'
 import Sidebar from './Sidebar'

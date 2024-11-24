@@ -1,17 +1,19 @@
 'use client'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
-import { DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'
-import { Input } from '@/components/ui/input'
+import { Badge } from '@/app/components/ui/badge'
+import { Button } from '@/app/components/ui/button'
+import { DialogContent, DialogHeader, DialogTitle } from '@/app/components/ui/dialog'
+import { Input } from '@/app/components/ui/input'
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/app/components/ui/tooltip'
 import { Property } from '@/data/data'
 import { useToast } from '@/hooks/use-toast'
 import { Loader2, X } from 'lucide-react'
 import { useState } from 'react'
-import { FaEdit, FaInfoCircle, FaSearch, FaTrash, FaUser } from 'react-icons/fa'
+import { FaEdit, FaFilter, FaInfoCircle, FaSearch, FaTrash, FaUser } from 'react-icons/fa'
 import { useDataContext } from '../contexts/DataContext'
 import { useModal } from '../contexts/ModalContext'
 import { useProperty } from '../contexts/PropertyContext'
 import useIntersectionObserver from '../hooks/use-intersection-observer'
+import FilterDropdown from './FilterDropdown'
 import PropertyForm from './PropertyForm'
 
 const statusColors = {
@@ -27,7 +29,9 @@ const ActiveProperties = () => {
     const { setData } = useDataContext()
     const [isSearching, setIsSearching] = useState(false)
     const [query, setQuery] = useState('')
-    const { hasMore, activeProperties, infiniteScrollRef, properties } = useIntersectionObserver(query)
+    const { hasMore, activeProperties, infiniteScrollRef, properties, setHasMore } = useIntersectionObserver()
+    const [filteredData, setFilteredData] = useState(properties || [])
+    const [isFiltering, setIsFiltering] = useState(false)
 
     const handleDelete = (id: number) => {
         const propertyName = activeProperties.properties.find((prop) => prop.id === id)?.name
@@ -67,25 +71,77 @@ const ActiveProperties = () => {
         setModalOpen(false)
     }
 
+    const onFilterChange = (key: string, value: string) => {
+        if(key === 'reset') {
+            setIsFiltering(false)
+            return setFilteredData(properties)
+        }
+        setIsFiltering(true)
+        if (key === 'status') {
+            setFilteredData(() => properties.filter((item) => item.status === value).filter((property) => property.name.toLowerCase().includes(query.toLowerCase())))
+        }
+        setHasMore(false)
+    }
+
     return (
         <section className="text-black dark:text-white">
             <div className="flex justify-between items-center border-b py-2 flex-wrap gap-2">
                 {!query ? <h2 className="font-bold">Active Properties ({activeProperties.properties.length})</h2> : <h2 className="font-result">{properties.length} results</h2>}
-                {isSearching && <Input value={query} onChange={(e) => setQuery(e.target.value)} type="search" autoFocus className="w-fit focus-visible:ring-violet-500" />}
-                <Button
-                    onClick={() => {
-                        setIsSearching(!isSearching)
-                        if (query) setQuery('')
-                    }}
-                    variant="secondary"
-                    className='dark:bg-white dark:text-black dark:hover:bg-slate-200'
-                >
-                    {isSearching ? <X /> : <FaSearch />}
-                </Button>
+                {isSearching && (
+                    <Input
+                        value={query}
+                        onChange={(e) => {
+                            const value = e.target.value
+                            setQuery(value)
+                            setHasMore(false)
+                            setFilteredData(() => (filteredData.length > 0 ? filteredData : properties).filter((property) => property.name.toLowerCase().includes(query.toLowerCase())))
+                        }}
+                        type="search"
+                        autoFocus
+                        className="w-fit focus-visible:ring-violet-500"
+                    />
+                )}
+                <div className="space-x-2">
+                    <TooltipProvider delayDuration={0}>
+                        {
+                            <Tooltip>
+                                <TooltipTrigger asChild>
+                                    <FilterDropdown isFiltering={isFiltering} onFilterChange={onFilterChange}>
+                                        <Button className="dark:bg-white dark:text-black dark:hover:bg-slate-200 bg-violet-200 hover:bg-violet-400">
+                                            <FaFilter />
+                                        </Button>
+                                    </FilterDropdown>
+                                </TooltipTrigger>
+                                <TooltipContent>
+                                    <p>Filter</p>
+                                </TooltipContent>
+                            </Tooltip>
+                        }
+
+                        <Tooltip>
+                            <TooltipTrigger asChild>
+                                <Button
+                                    onClick={() => {
+                                        setIsSearching(!isSearching)
+                                        if (query) {
+                                            setQuery('')
+                                            setFilteredData(properties)
+                                        }
+                                    }}
+                                    variant="secondary"
+                                    className="dark:bg-white dark:text-black dark:hover:bg-slate-200 bg-violet-200 hover:bg-violet-400"
+                                >
+                                    {isSearching ? <X /> : <FaSearch />}
+                                </Button>
+                            </TooltipTrigger>
+                            <TooltipContent>{query || filteredData.length > 0 ? <p>Cancel</p> : <p>Search</p>}</TooltipContent>
+                        </Tooltip>
+                    </TooltipProvider>
+                </div>
             </div>
             <div className="overflow-y-auto lg:h-[34rem]">
-                {properties.length > 0 ? (
-                    properties.map((property) => (
+                {filteredData.length > 0 ? (
+                    filteredData.map((property) => (
                         <div key={property.id} className="*:py-1 p-2 border-b">
                             <div className="flex justify-between">
                                 <div>

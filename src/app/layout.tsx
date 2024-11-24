@@ -1,4 +1,4 @@
-import { Toaster } from '@/components/ui/toaster'
+import { Toaster } from '@/app/components/ui/toaster'
 import type { Metadata } from 'next'
 import localFont from 'next/font/local'
 import Footer from './components/Footer'

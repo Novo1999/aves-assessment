@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useDataContext } from "../contexts/DataContext";
 import { sleep } from "./use-add-property";
 
-const useIntersectionObserver = (query: string) => {
+const useIntersectionObserver = () => {
     const [limit, setLimit] = useState(10);
     const infiniteScrollRef = useRef(null);
     const [hasMore, setHasMore] = useState(true);
@@ -10,14 +10,13 @@ const useIntersectionObserver = (query: string) => {
         data: { activeProperties },
     } = useDataContext()
 
-    const properties = activeProperties.properties.filter((property) => property.name.toLowerCase().includes(query.toLowerCase())).slice(0, limit)
+    const properties = activeProperties.properties.slice(0, limit)
 
     useEffect(() => {
         if (properties.length === activeProperties.properties.length) {
             setHasMore(false)
         }
         if (properties.length < activeProperties.properties.length) {
-            if (query) return setHasMore(false)
             setHasMore(true);
         }
 
@@ -37,10 +36,10 @@ const useIntersectionObserver = (query: string) => {
         return () => {
             if (observer) observer.disconnect();
         };
-    }, [hasMore, limit, properties.length, query, activeProperties.properties]);
+    }, [hasMore, limit, properties.length, activeProperties.properties]);
 
 
-    return { infiniteScrollRef, hasMore, limit, activeProperties, properties };
+    return { infiniteScrollRef, hasMore, limit, activeProperties, properties, setHasMore };
 };
 
 export default useIntersectionObserver;

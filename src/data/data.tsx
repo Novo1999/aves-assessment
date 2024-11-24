@@ -210,70 +210,6 @@ export const dashboardData = {
             key: 'reviews',
         },
     ],
-    nextSteps: [
-        {
-            title: 'Set up your calendar',
-            progress: '4/6',
-            status: 'incomplete',
-        },
-        {
-            title: 'Increase your bookings',
-            progress: '2/6',
-            status: 'incomplete',
-        },
-    ],
-    newBookings: [
-        {
-            property: '196 Kansas Avenue',
-            dateRange: '24.08 - 1.09',
-            duration: '7 Days',
-            earnings: '$2,178.78',
-            image: 'property-1.jpg',
-        },
-        {
-            property: '917 Garden Street',
-            dateRange: '24.08 - 1.09',
-            duration: '7 Days',
-            earnings: '$2,178.78',
-            image: 'property-2.jpg',
-        },
-        {
-            property: '568 Gotham Center',
-            dateRange: '24.08 - 1.09',
-            duration: '7 Days',
-            earnings: '$2,178.78',
-            image: 'property-3.jpg',
-        },
-    ],
-    newActivity: [
-        {
-            title: 'Pet Friendliness',
-            timeAgo: '3 hours ago',
-            details: '196 Kansas Avenue, Block A, 7th Floor, Number 14',
-            type: 'question',
-        },
-        {
-            title: 'Water Issue',
-            timeAgo: '10 hours ago',
-            details: '917 Garden Street, Santa Monica, CA 987 360',
-            type: 'damage report',
-        },
-        {
-            title: 'Invoice Inquiry',
-            timeAgo: '2 days ago',
-            details: '568 Gotham Center, Santa Monica, CA 987 360',
-            type: 'request',
-        },
-        {
-            title: 'Water Issue',
-            timeAgo: '5 days ago',
-            details: '1016 Penstreet, Block A, 7th Floor, Number 14',
-            type: 'request',
-        },
-    ],
-    filters: {
-        timePeriod: 'Last month',
-    },
     activeProperties,
 }
 
@@ -287,31 +223,6 @@ export type Stats = {
     title: string
     icon: string
     key: string
-}
-
-type NextStep = {
-    title: string
-    progress: string
-    status: string
-}
-
-type Booking = {
-    property: string
-    dateRange: string
-    duration: string
-    earnings: string
-    image: string
-}
-
-type Activity = {
-    title: string
-    timeAgo: string
-    details: string
-    type: string
-}
-
-type Filters = {
-    timePeriod: string
 }
 
 export type Property = {
@@ -329,10 +240,6 @@ export type Property = {
 
 export type DashboardData = {
     stats: Stats[]
-    nextSteps: NextStep[]
-    newBookings: Booking[]
-    newActivity: Activity[]
-    filters: Filters
     activeProperties: {
         properties: Property[]
     }

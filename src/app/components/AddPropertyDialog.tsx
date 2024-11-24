@@ -1,5 +1,5 @@
 'use client'
-import { Button } from '@/components/ui/button'
+import { Button } from '@/app/components/ui/button'
 import { FaPlusCircle } from 'react-icons/fa'
 import { useModal } from '../contexts/ModalContext'
 import { initialPropertyData } from '../contexts/PropertyContext'

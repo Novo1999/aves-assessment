@@ -1,6 +1,6 @@
 'use client'
+import { Dialog } from '@/app/components/ui/dialog'
 import { useModal } from '@/app/contexts/ModalContext'
-import { Dialog } from '@/components/ui/dialog'
 
 export const MyModal = () => {
     const { content, modalOpen, setModalOpen } = useModal()

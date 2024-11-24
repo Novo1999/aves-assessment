@@ -8,7 +8,7 @@ import AnalogClock from './components/ui/AnalogClock'
 
 export default function Home() {
     return (
-        <main className="container">
+        <main className="container mb-36 xl:mb-0">
             <div className="flex gap-2 mb-4">
                 <AnalogClock />
                 <p className="text-black mt-6 dark:text-white">{showCurrentDate()}</p>
@@ -31,8 +31,8 @@ export default function Home() {
                     <StatsOverview />
                 </div>
             </section>
-            <InitLocalStorage />
             <div className="bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-purple-200 dark:from-purple-500 to-transparent rounded-full z-[-10] blur-lg fixed top-6 right-0 transform translate-x-1/2 -translate-y-1/2 w-[40%] h-[40%]"></div>
+            <InitLocalStorage /> {/* initializes the local storage data */}
         </main>
     )
 }
