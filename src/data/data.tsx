@@ -6,10 +6,10 @@ export const activeProperties = {
             tenants: 2,
             requests: 1,
             status: 'active',
-            area: '124 sq m',
+            area: 124,
             checkIns: 5,
             checkOuts: 3,
-            earnings: '$1,000.00',
+            earnings: 1000.0,
             reviews: {
                 averageRating: 4.5,
                 totalReviews: 100,
@@ -21,10 +21,10 @@ export const activeProperties = {
             tenants: 2,
             requests: 1,
             status: 'inactive',
-            area: '124 sq m',
+            area: 124,
             checkIns: 3,
             checkOuts: 1,
-            earnings: '$500.00',
+            earnings: 500.0,
             reviews: {
                 averageRating: 4.0,
                 totalReviews: 75,
@@ -36,10 +36,10 @@ export const activeProperties = {
             tenants: 2,
             requests: 1,
             status: 'active',
-            area: '124 sq m',
+            area: 124,
             checkIns: 7,
             checkOuts: 4,
-            earnings: '$1,500.00',
+            earnings: 1500.0,
             reviews: {
                 averageRating: 4.7,
                 totalReviews: 120,
@@ -51,10 +51,10 @@ export const activeProperties = {
             tenants: 2,
             requests: 1,
             status: 'inactive',
-            area: '124 sq m',
+            area: 124,
             checkIns: 2,
             checkOuts: 0,
-            earnings: '$200.00',
+            earnings: 200.0,
             reviews: {
                 averageRating: 4.2,
                 totalReviews: 50,
@@ -66,10 +66,10 @@ export const activeProperties = {
             tenants: 2,
             requests: 1,
             status: 'active',
-            area: '124 sq m',
+            area: 124,
             checkIns: 4,
             checkOuts: 3,
-            earnings: '$800.00',
+            earnings: 800.0,
             reviews: {
                 averageRating: 4.6,
                 totalReviews: 110,
@@ -81,10 +81,10 @@ export const activeProperties = {
             tenants: 2,
             requests: 1,
             status: 'pending',
-            area: '124 sq m',
+            area: 124,
             checkIns: 1,
             checkOuts: 1,
-            earnings: '$300.00',
+            earnings: 300.0,
             reviews: {
                 averageRating: 4.3,
                 totalReviews: 30,
@@ -96,10 +96,10 @@ export const activeProperties = {
             tenants: 2,
             requests: 1,
             status: 'pending',
-            area: '124 sq m',
+            area: 124,
             checkIns: 0,
             checkOuts: 0,
-            earnings: '$0.00',
+            earnings: 0.0,
             reviews: {
                 averageRating: 0,
                 totalReviews: 0,
@@ -111,10 +111,10 @@ export const activeProperties = {
             tenants: 3,
             requests: 2,
             status: 'active',
-            area: '150 sq m',
+            area: 150,
             checkIns: 8,
             checkOuts: 6,
-            earnings: '$2,000.00',
+            earnings: 2000.0,
             reviews: {
                 averageRating: 4.8,
                 totalReviews: 130,
@@ -126,10 +126,10 @@ export const activeProperties = {
             tenants: 1,
             requests: 0,
             status: 'inactive',
-            area: '110 sq m',
+            area: 110,
             checkIns: 2,
             checkOuts: 2,
-            earnings: '$400.00',
+            earnings: 400.0,
             reviews: {
                 averageRating: 3.9,
                 totalReviews: 40,
@@ -141,10 +141,10 @@ export const activeProperties = {
             tenants: 4,
             requests: 3,
             status: 'active',
-            area: '200 sq m',
+            area: 200,
             checkIns: 10,
             checkOuts: 8,
-            earnings: '$3,500.00',
+            earnings: 3500.0,
             reviews: {
                 averageRating: 4.9,
                 totalReviews: 200,
@@ -156,10 +156,10 @@ export const activeProperties = {
             tenants: 2,
             requests: 1,
             status: 'pending',
-            area: '180 sq m',
+            area: 180,
             checkIns: 3,
             checkOuts: 3,
-            earnings: '$700.00',
+            earnings: 700.0,
             reviews: {
                 averageRating: 4.1,
                 totalReviews: 60,
@@ -171,10 +171,10 @@ export const activeProperties = {
             tenants: 5,
             requests: 4,
             status: 'active',
-            area: '250 sq m',
+            area: 250,
             checkIns: 12,
             checkOuts: 10,
-            earnings: '$5,000.00',
+            earnings: 5000.0,
             reviews: {
                 averageRating: 5.0,
                 totalReviews: 300,
@@ -188,29 +188,26 @@ export const dashboardData = {
         {
             id: 1,
             title: 'Check-ins',
-            data: 12,
             icon: 'checkCircle',
+            key: 'checkIns',
         },
         {
             id: 2,
             title: 'Check-outs',
-            data: 32,
             icon: 'signOutAlt',
+            key: 'checkOuts',
         },
         {
             id: 3,
             title: 'Earnings',
-            data: '$4,923.68',
             icon: 'dollarSign',
+            key: 'earnings',
         },
         {
             id: 4,
             title: 'Reviews',
-            data: {
-                averageRating: 4.5,
-                totalReviews: 1400,
-            },
             icon: 'star',
+            key: 'reviews',
         },
     ],
     nextSteps: [
@@ -280,64 +277,63 @@ export const dashboardData = {
     activeProperties,
 }
 
-
 type ReviewStats = {
-    averageRating: number;
-    totalReviews: number;
-};
+    averageRating: number
+    totalReviews: number
+}
 
-type Stats = {
-    id: number;
-    title: string;
-    data: number | string | ReviewStats;
-    icon: string;
-};
+export type Stats = {
+    id: number
+    title: string
+    icon: string
+    key: string
+}
 
 type NextStep = {
-    title: string;
-    progress: string;
-    status: string;
-};
+    title: string
+    progress: string
+    status: string
+}
 
 type Booking = {
-    property: string;
-    dateRange: string;
-    duration: string;
-    earnings: string;
-    image: string;
-};
+    property: string
+    dateRange: string
+    duration: string
+    earnings: string
+    image: string
+}
 
 type Activity = {
-    title: string;
-    timeAgo: string;
-    details: string;
-    type: string;
-};
+    title: string
+    timeAgo: string
+    details: string
+    type: string
+}
 
 type Filters = {
-    timePeriod: string;
-};
+    timePeriod: string
+}
 
 export type Property = {
-    id: number;
-    name: string;
-    tenants: number;
-    requests: number;
-    status: string;
-    area: string;
-    checkIns: number;
-    checkOuts: number;
-    earnings: string;
-    reviews: ReviewStats;
-};
+    id: number
+    name: string
+    tenants: number
+    requests: number
+    status: string
+    area: number
+    checkIns: number
+    checkOuts: number
+    earnings: number
+    reviews: ReviewStats
+}
 
 export type DashboardData = {
-    stats: Stats[];
-    nextSteps: NextStep[];
-    newBookings: Booking[];
-    newActivity: Activity[];
-    filters: Filters;
+    stats: Stats[]
+    nextSteps: NextStep[]
+    newBookings: Booking[]
+    newActivity: Activity[]
+    filters: Filters
     activeProperties: {
-        properties: Property[];
-    };
-};
+        properties: Property[]
+    }
+}

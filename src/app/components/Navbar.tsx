@@ -3,8 +3,6 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
 import { useState } from 'react'
 import { FaBars } from 'react-icons/fa'
-import AddPropertyDialog from './AddPropertyDialog'
-import SearchBar from './SearchBar'
 import Sidebar from './Sidebar'
 import { ModeToggle } from './ui/theme-toggle'
 
@@ -13,8 +11,8 @@ const Navbar = () => {
     return (
         <nav className="flex justify-between p-4 text-purple-700 border">
             <div className="flex gap-6 items-center">
-                <Avatar className='md:w-16'>
-                    <AvatarImage src="https://novodip.vercel.app/_next/image?url=%2Fimages%2Ffolio-hero.png&w=640&q=75" alt="novodip" className='object-cover' />
+                <Avatar className="md:w-16">
+                    <AvatarImage src="https://novodip.vercel.app/_next/image?url=%2Fimages%2Ffolio-hero.png&w=640&q=75" alt="novodip" className="object-cover" />
                     <AvatarFallback>N</AvatarFallback>
                 </Avatar>
                 <div className="lg:flex hidden justify-between gap-2 *:bg-violet-200 *:text-violet-800 *:font-semibold">
@@ -23,13 +21,9 @@ const Navbar = () => {
                     <Button className="hover:bg-violet-300">Deposits</Button>
                 </div>
             </div>
-            <AddPropertyDialog />
 
             <div className="flex gap-2">
-                <SearchBar />
-                <div>
-                    <ModeToggle />
-                </div>
+                <ModeToggle />
                 <button className="block lg:hidden" onClick={() => setIsOpen(!isOpen)}>
                     <FaBars />
                 </button>

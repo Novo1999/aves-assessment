@@ -1,6 +1,6 @@
-
 import { showCurrentDate } from '@/lib/utils'
 import ActiveProperties from './components/ActiveProperties'
+import AddPropertyDialog from './components/AddPropertyDialog'
 import DetailsBar from './components/DetailsBar'
 import InitLocalStorage from './components/InitLocalStorage'
 import StatsOverview from './components/StatsOverview'
@@ -13,8 +13,13 @@ export default function Home() {
                 <AnalogClock />
                 <p className="text-black mt-6">{showCurrentDate()}</p>
             </div>
-            <p className="text-xl font-bold text-black">Welcome back, Iquas!</p>
-            <p className="text-slate-400">This is property portfolio report.</p>
+            <section className='flex justify-between'>
+                <div>
+                    <p className="text-xl font-bold text-black">Welcome back, Iquas!</p>
+                    <p className="text-slate-400">This is property portfolio report.</p>
+                </div>
+                <AddPropertyDialog />
+            </section>
             <section className="grid grid-cols-1 lg:grid-cols-3 mt-6 border">
                 <div className="border-r border-b col-span-2 p-2 flex items-center justify-center">
                     <DetailsBar />

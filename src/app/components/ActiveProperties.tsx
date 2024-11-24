@@ -67,7 +67,7 @@ const ActiveProperties = () => {
 
     return (
         <section className="text-black">
-            <div className="flex justify-between items-center border-b py-2">
+            <div className="flex justify-between items-center border-b py-2 flex-wrap gap-2">
                 {!query ? <h2 className="font-bold">Active Properties ({activeProperties.properties.length})</h2> : <h2 className="font-result">{properties.length} results</h2>}
                 {isSearching && <Input value={query} onChange={(e) => setQuery(e.target.value)} type="search" autoFocus className="w-fit focus-visible:ring-violet-500" />}
                 <Button
@@ -92,7 +92,7 @@ const ActiveProperties = () => {
                                 </div>
                                 <div className="flex flex-col gap-2">
                                     <Badge className={`${statusColors[property.status as keyof typeof statusColors]} capitalize`}>{property.status}</Badge>
-                                    <p className="font-bold text-xs self-end">{property.area}</p>
+                                    <p className="font-bold text-xs self-end">{`${property.area} sqm`}</p>
                                 </div>
                             </div>
                             <div className="flex gap-4 *:text-xs justify-between">

@@ -1,3 +1,4 @@
+'use client'
 import { Button } from '@/components/ui/button'
 import { FaPlusCircle } from 'react-icons/fa'
 import { useModal } from '../contexts/ModalContext'

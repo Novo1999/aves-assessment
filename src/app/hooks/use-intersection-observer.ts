@@ -17,7 +17,7 @@ const useIntersectionObserver = (query: string) => {
             setHasMore(false)
         }
         if (properties.length < activeProperties.properties.length) {
-            if (query) return
+            if (query) return setHasMore(false)
             setHasMore(true);
         }
 

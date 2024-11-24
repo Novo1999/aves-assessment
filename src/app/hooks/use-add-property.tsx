@@ -7,6 +7,8 @@ import { initialPropertyData, useProperty } from '../contexts/PropertyContext'
 
 export const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
 
+const numInputs = ['area', 'checkIns', 'checkOuts', 'earnings', 'requests', 'tenants']
+
 const useAddProperty = () => {
     const { setModalOpen } = useModal()
     const { setData } = useDataContext()
@@ -16,7 +18,7 @@ const useAddProperty = () => {
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target
-        setPropertyData((prev) => ({ ...prev, [name]: value }))
+        setPropertyData((prev) => ({ ...prev, [name]: numInputs.includes(name) ? Number(value) : value }))
     }
 
     const handleStatusChange = (value: string) => {
@@ -25,7 +27,7 @@ const useAddProperty = () => {
 
     const handleSubmit = async (e: React.FormEvent, id?: number | null) => {
         e.preventDefault()
-        const { name, status, requests, area, tenants } = propertyData
+        const { name, status, requests, area, tenants, checkIns, checkOuts, earnings } = propertyData
         setIsLoading(true)
         await sleep(1000)
 
@@ -44,7 +46,7 @@ const useAddProperty = () => {
         } else {
             setData((prev) => {
                 const newId = prev.activeProperties.properties.length > 0 ? prev.activeProperties.properties[prev.activeProperties.properties.length - 1].id + 1 : 1
-                const newProperty = { id: newId, name, status, requests, area: `${area} sq m`, tenants }
+                const newProperty = { id: newId, name, status, requests, area, tenants, checkIns, checkOuts, earnings }
 
                 return {
                     ...prev,
