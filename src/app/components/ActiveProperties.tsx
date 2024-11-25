@@ -31,8 +31,8 @@ const ActiveProperties = () => {
     const [query, setQuery] = useState('')
     const { hasMore, activeProperties, infiniteScrollRef, properties, limit, setLimit, setHasMore } = useIntersectionObserver()
     const [filteredData, setFilteredData] = useState(properties || [])
+    const [filters, setFilters] = useState<Record<string, string | number>>({})
     const [isFiltering, setIsFiltering] = useState(false)
-
 
     // if limit changes, set filtered data to properties
     useEffect(() => {
@@ -78,18 +78,43 @@ const ActiveProperties = () => {
         setModalOpen(false)
     }
 
-    const onFilterChange = (key: string, value: string) => {
-        if (key === 'reset') {
-            setIsFiltering(false)
-            return setFilteredData(properties)
-        }
-        if (key === 'status') {
-            setIsFiltering(true)
-            setFilteredData(() => properties.filter((item) => item.status === value).filter((property) => property.name.toLowerCase().includes(query.toLowerCase())))
-        }
-        setLimit(10)
-        setHasMore(true)
+    const applyFilters = () => {
+        let updatedData = [...properties]
+
+        // chain filters
+        Object.entries(filters).forEach(([key, value]) => {
+            if (key === 'status') {
+                updatedData = updatedData.filter((item) => item.status === value)
+            } else if (key === 'area') {
+                updatedData = updatedData.filter((item) => item.area < (value as number))
+            } else if (key === 'query') {
+                updatedData = updatedData.filter((item) => item.name.toLowerCase().includes((value as string).toLowerCase()))
+            } else if (key === 'earnings') {
+                updatedData = updatedData.filter((item) => item.earnings < (value as number))
+            } else if (key === 'reset') {
+                updatedData = properties
+            }
+        })
+
+        setFilteredData(updatedData)
     }
+
+    const onFilterChange = (key: string, value: string | number | null) => {
+        setIsFiltering(true)
+        setFilters((prev) => {
+            const newFilters = { ...prev }
+            if (value === null) {
+                delete newFilters[key]
+            } else {
+                newFilters[key] = value
+            }
+            return newFilters
+        })
+    }
+
+    useEffect(() => {
+        applyFilters()
+    }, [filters])
 
     return (
         <section className="text-black dark:text-white">
